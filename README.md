@@ -1,7 +1,8 @@
 # modsecurity-nginx
+Pre-compiled binaries for modsecurity with the crs ruleset
 
 ## About
-This project contains the pre-compiled binaries for use with a specific version of Nginx from the official mainline repository on CentOS 7. These configurations are for our use and have not been tested for anything other than our intended purpose.
+This project contains the pre-compiled binaries for use with a specific version of Nginx on CentOS 7. These configurations are for our use and have not been tested for anything other than our intended purpose.
 
 ## License
 The custom configurations and information for use with nginx in this project were created for our sole use but you may use them at your own risk.
