@@ -1,5 +1,5 @@
 # modsecurity-nginx
-Pre-compiled binaries for modsecurity with the crs ruleset
+Pre-compiled binaries for modsecurity with nginx
 
 ## About
 This project contains the pre-compiled binaries for use with a specific version of Nginx on CentOS 7. These configurations are for our use and have not been tested for anything other than our intended purpose.
@@ -15,6 +15,3 @@ libmodsecurity is distributed under Apache Software License (ASL) version 2
 Copyright (c) 2015 Trustwave Holdings, Inc. (http://www.trustwave.com/)  
 ModSecurity connector for nginx is distributed under Apache Software License (ASL) version 2
 
-### OWASP Core Rule Set
-Copyright 2006-2017 Trustwave and contributors. (http://www.trustwave.com/)  
-The OWASP ModSecurity Core Rule Set is distributed under Apache Software License (ASL) version 2
