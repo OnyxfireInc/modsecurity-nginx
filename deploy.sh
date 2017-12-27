@@ -1,5 +1,6 @@
 #!/bin/bash
 
+nginxVersion=v1.13.7
 crsVersion=3.0.2
 
 # Create modules link if doesn't exist
@@ -8,7 +9,7 @@ if [ ! -d /etc/nginx/modules/ ]; then
 fi
 
 # Install modsecurity for nginx dynamic module
-cp -f ./ngx_http_modsecurity_module.so /etc/nginx/modules/
+wget -q -P /etc/nginx/modules/ https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/${nginxVersion}/ngx_http_modsecurity_module.so
 
 # Create modsec directory if it doesn't exist
 if [ ! -d /etc/nginx/modsec ]; then
