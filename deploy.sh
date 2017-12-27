@@ -1,6 +1,6 @@
 #!/bin/bash
 
-nginxVersion=v1.13.7
+nginxVersion=v1.13.8
 crsVersion=3.0.2
 
 # Create modules link if doesn't exist
