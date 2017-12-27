@@ -8,8 +8,8 @@ if [ ! -d /etc/nginx/modules/ ]; then
 	ln -sf /usr/lib64/nginx/modules /etc/nginx/modules
 fi
 
-# Install modsecurity for nginx dynamic module
-wget -q -P /etc/nginx/modules/ https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/${nginxVersion}/ngx_http_modsecurity_module.so
+# Install/Update modsecurity for nginx dynamic module
+wget -q -O /etc/nginx/modules/ngx_http_modsecurity_module.so https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/${nginxVersion}/ngx_http_modsecurity_module.so
 
 # Create modsec directory if it doesn't exist
 if [ ! -d /etc/nginx/modsec ]; then
@@ -44,7 +44,7 @@ fi
 # Install OWASP CRS rules
 wget -q -O - https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v${crsVersion}.tar.gz | tar zx -C /etc/nginx/modsec/
 mv /etc/nginx/modsec/owasp-modsecurity-crs-${crsVersion} /etc/nginx/modsec/crs
-cp /etc/nginx/modsec/crs/crs-setup.conf.example /etc/nginx/modsec/crs/crs/crs-setup.conf
+cp /etc/nginx/modsec/crs/crs-setup.conf.example /etc/nginx/modsec/crs/crs-setup.conf
 
 # Install recommended modsecurity config
 wget -q -P /etc/nginx/modsec/ https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended
