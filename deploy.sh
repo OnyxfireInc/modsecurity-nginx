@@ -36,7 +36,7 @@ if [ ! -f /etc/nginx/conf.d/default.conf ]; then
 	mv /etc/nginx/conf.d/default.conf.new /etc/nginx/conf.d/default.conf
 fi
 
-# Install or update installed libmodsecurity
+# Install or update libmodsecurity
 if [ -d /usr/local/modsecurity/ ]; then
 	rm -rf /usr/local/modsecurity/
 fi
