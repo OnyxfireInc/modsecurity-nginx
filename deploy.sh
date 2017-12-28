@@ -10,6 +10,7 @@ fi
 
 # Install/Update modsecurity for nginx dynamic module
 wget -q -O /etc/nginx/modules/ngx_http_modsecurity_module.so https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/${nginxVersion}/ngx_http_modsecurity_module.so
+chmod 0755 /etc/nginx/modules/ngx_http_modsecurity_module.so
 
 # Create modsec directory if it doesn't exist
 if [ ! -d /etc/nginx/modsec ]; then
@@ -32,7 +33,7 @@ fi
 wget -q -O - https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/modsecurity.tar.gz | tar -zx -C /usr/local
 find /usr/local/modsecurity/ -type d -exec chmod 0755 {} \;
 find /usr/local/modsecurity/ -type f -exec chmod 0644 {} \;
-chmod 0755 /usr/local/modsecurity /usr/local/modsecurity/lib/libmodsecurity.la /usr/local/modsecurity/lib/libmodsecurity.so.3.0.0
+chmod 0755 /usr/local/modsecurity /usr/local/modsecurity/bin/modsec-rules-check /usr/local/modsecurity/lib/libmodsecurity.la /usr/local/modsecurity/lib/libmodsecurity.so.3.0.0
 ln -sf /usr/local/modsecurity/lib/libmodsecurity.so.3.0.0 /usr/local/modsecurity/lib/libmodsecurity.so
 ln -sf /usr/local/modsecurity/lib/libmodsecurity.so.3.0.0 /usr/local/modsecurity/lib/libmodsecurity.so.3
 
