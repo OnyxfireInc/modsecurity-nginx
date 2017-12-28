@@ -8,23 +8,33 @@ if [ ! -d /etc/nginx/modules/ ]; then
 	ln -sf /usr/lib64/nginx/modules /etc/nginx/modules
 fi
 
-# Install/Update modsecurity for nginx dynamic module
+# Install or update modsecurity for nginx dynamic module
 wget -q -O /etc/nginx/modules/ngx_http_modsecurity_module.so https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/${nginxVersion}/ngx_http_modsecurity_module.so
 chmod 0755 /etc/nginx/modules/ngx_http_modsecurity_module.so
 
 # Create modsec directory if it doesn't exist
 if [ ! -d /etc/nginx/modsec ]; then
 	mkdir /etc/nginx/modsec
+	chmod 0755 /etc/nginx/modsec
 fi
 
 # Install custom modsecurity config for nginx
 wget -q -O /etc/nginx/modsec/main.conf.new https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/main.conf
+if [ ! -f /etc/nginx/modsec/main.conf ]; then
+	mv /etc/nginx/modsec/main.conf.new /etc/nginx/modsec/main.conf
+fi
 
 # Install nginx base configuration
 wget -q -O /etc/nginx/nginx.conf.new https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/nginx.conf
+if [ ! -f /etc/nginx/nginx.conf ]; then
+	mv /etc/nginx/nginx.conf.new /etc/nginx/nginx.conf
+fi
 
 # Install default server config
 wget -q -O /etc/nginx/conf.d/default.conf.new https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/default.conf
+if [ ! -f /etc/nginx/conf.d/default.conf ]; then
+	mv /etc/nginx/conf.d/default.conf.new /etc/nginx/conf.d/default.conf
+fi
 
 # Install or update installed libmodsecurity
 if [ -d /usr/local/modsecurity/ ]; then
