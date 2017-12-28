@@ -13,5 +13,5 @@ libmodsecurity is distributed under Apache Software License (ASL) version 2
 
 ### ModSecurity connector for nginx
 Copyright (c) 2015 Trustwave Holdings, Inc. (http://www.trustwave.com/)  
-ModSecurity connector for nginx is distributed under Apache Software License (ASL) version 2
+ModSecurity connector for Nginx is distributed under Apache Software License (ASL) version 2
 
