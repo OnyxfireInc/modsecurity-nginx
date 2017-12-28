@@ -40,7 +40,7 @@ fi
 if [ -d /usr/local/modsecurity/ ]; then
 	rm -rf /usr/local/modsecurity/
 fi
-wget -q -O - https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/modsecurity.tar.gz | tar -zx -C /usr/local
+wget -q -O - https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/modsecurity.tar.gz | tar -zxm -C /usr/local
 find /usr/local/modsecurity/ -type d -exec chmod 0755 {} \;
 find /usr/local/modsecurity/ -type f -exec chmod 0644 {} \;
 chmod 0755 /usr/local/modsecurity /usr/local/modsecurity/bin/modsec-rules-check /usr/local/modsecurity/lib/libmodsecurity.la /usr/local/modsecurity/lib/libmodsecurity.so.3.0.0
