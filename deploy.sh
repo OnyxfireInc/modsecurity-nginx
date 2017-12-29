@@ -40,6 +40,9 @@ if [ ! -f /etc/nginx/conf.d/default.conf ]; then
 	/usr/bin/mv /etc/nginx/conf.d/default.conf.new /etc/nginx/conf.d/default.conf
 fi
 
+# Install logrotate configuration
+/usr/bin/wget -q -O /etc/logrotate.d/nginx https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/nginx
+
 # Install or update libmodsecurity
 if [ -d /usr/local/modsecurity/ ]; then
 	/usr/bin/rm -rf /usr/local/modsecurity/
