@@ -4,6 +4,9 @@ connectorVersion=1.0.0
 nginxVersion=1.13.8
 crsVersion=3.0.2
 
+# Install dependencies
+yum install yajl -y
+
 # Create modules link if doesn't exist
 if [ ! -d /etc/nginx/modules/ ]; then
 	/usr/bin/ln -sf /usr/lib64/nginx/modules /etc/nginx/modules
@@ -11,6 +14,7 @@ fi
 
 # Install or update modsecurity for nginx dynamic module
 /usr/bin/wget -q -O /etc/nginx/modules/ngx_http_modsecurity_module.so https://onyxfireinc.com/open-source/modsecurity-nginx/${connectorVersion}/${nginxVersion}/ngx_http_modsecurity_module.so
+chmod 0755 /etc/nginx/modules/ngx_http_modsecurity_module.so
 
 # Create modsec directory if it doesn't exist
 if [ ! -d /etc/nginx/modsec ]; then
