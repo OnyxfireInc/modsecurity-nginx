@@ -6,55 +6,55 @@ crsVersion=3.0.2
 
 # Create modules link if doesn't exist
 if [ ! -d /etc/nginx/modules/ ]; then
-	ln -sf /usr/lib64/nginx/modules /etc/nginx/modules
+	/usr/bin/ln -sf /usr/lib64/nginx/modules /etc/nginx/modules
 fi
 
 # Install or update modsecurity for nginx dynamic module
-wget -q -O /etc/nginx/modules/ngx_http_modsecurity_module.so https://onyxfireinc.com/open-source/modsecurity-nginx/${connectorVersion}/${nginxVersion}/ngx_http_modsecurity_module.so
+/usr/bin/wget -q -O /etc/nginx/modules/ngx_http_modsecurity_module.so https://onyxfireinc.com/open-source/modsecurity-nginx/${connectorVersion}/${nginxVersion}/ngx_http_modsecurity_module.so
 
 # Create modsec directory if it doesn't exist
 if [ ! -d /etc/nginx/modsec ]; then
-	mkdir /etc/nginx/modsec
-	chmod 0755 /etc/nginx/modsec
+	/usr/bin/mkdir /etc/nginx/modsec
+	/usr/bin/chmod 0755 /etc/nginx/modsec
 fi
 
 # Install custom modsecurity config for nginx
-wget -q -O /etc/nginx/modsec/main.conf.new https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/main.conf
+/usr/bin/wget -q -O /etc/nginx/modsec/main.conf.new https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/main.conf
 if [ ! -f /etc/nginx/modsec/main.conf ]; then
-	mv /etc/nginx/modsec/main.conf.new /etc/nginx/modsec/main.conf
+	/usr/bin/mv /etc/nginx/modsec/main.conf.new /etc/nginx/modsec/main.conf
 fi
 
 # Install nginx base configuration
-wget -q -O /etc/nginx/nginx.conf.new https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/nginx.conf
+/usr/bin/wget -q -O /etc/nginx/nginx.conf.new https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/nginx.conf
 if [ ! -f /etc/nginx/nginx.conf ]; then
-	mv /etc/nginx/nginx.conf.new /etc/nginx/nginx.conf
+	/usr/bin/mv /etc/nginx/nginx.conf.new /etc/nginx/nginx.conf
 fi
 
 # Install default server config
-wget -q -O /etc/nginx/conf.d/default.conf.new https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/default.conf
+/usr/bin/wget -q -O /etc/nginx/conf.d/default.conf.new https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/default.conf
 if [ ! -f /etc/nginx/conf.d/default.conf ]; then
-	mv /etc/nginx/conf.d/default.conf.new /etc/nginx/conf.d/default.conf
+	/usr/bin/mv /etc/nginx/conf.d/default.conf.new /etc/nginx/conf.d/default.conf
 fi
 
 # Install or update libmodsecurity
 if [ -d /usr/local/modsecurity/ ]; then
-	rm -rf /usr/local/modsecurity/
+	/usr/bin/rm -rf /usr/local/modsecurity/
 fi
-wget -q -O - https://onyxfireinc.com/open-source/modsecurity/3.0.0/libmodsecurity.tar.gz | tar -zxm -C /usr/local
+/usr/bin/wget -q -O - https://onyxfireinc.com/open-source/modsecurity/3.0.0/libmodsecurity.tar.gz | tar -zxm -C /usr/local
 
 # Remove existing OWASP CRS rules
 if [ -d /etc/nginx/modsec/crs ]; then
-	rm -rf /etc/nginx/modsec/crs/
+	/usr/bin/rm -rf /etc/nginx/modsec/crs/
 fi
 
 # Install OWASP CRS rules
-wget -q -O - https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v${crsVersion}.tar.gz | tar zx -C /etc/nginx/modsec/
-mv /etc/nginx/modsec/owasp-modsecurity-crs-${crsVersion} /etc/nginx/modsec/crs
-cp /etc/nginx/modsec/crs/crs-setup.conf.example /etc/nginx/modsec/crs/crs-setup.conf
+/usr/bin/wget -q -O - https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v${crsVersion}.tar.gz | tar zx -C /etc/nginx/modsec/
+/usr/bin/mv /etc/nginx/modsec/owasp-modsecurity-crs-${crsVersion} /etc/nginx/modsec/crs
+/usr/bin/cp /etc/nginx/modsec/crs/crs-setup.conf.example /etc/nginx/modsec/crs/crs-setup.conf
 
 # Install recommended modsecurity config
-wget -q -O /etc/nginx/modsec/modsecurity.conf-recommended https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended
+/usr/bin/wget -q -O /etc/nginx/modsec/modsecurity.conf-recommended https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended
 if [ ! -f /etc/nginx/modsec/modsecurity.conf ]; then
-	mv /etc/nginx/modsec/modsecurity.conf-recommended /etc/nginx/modsec/modsecurity.conf
-	sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/nginx/modsec/modsecurity.conf
+	/usr/bin/mv /etc/nginx/modsec/modsecurity.conf-recommended /etc/nginx/modsec/modsecurity.conf
+	/usr/bin/sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/nginx/modsec/modsecurity.conf
 fi
