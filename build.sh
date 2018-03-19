@@ -17,7 +17,7 @@ EOF
 sudo /usr/bin/mv nginx.repo /etc/yum.repos.d/
 
 # Install dependencies
-sudo /usr/bin/yum install wget gcc-c++ flex bison yajl yajl-devel curl-devel GeoIP-devel doxygen zlib-devel nginx -y pcre-devel libxml2-devel openssl-devel
+sudo /usr/bin/yum install wget gcc-c++ flex bison yajl yajl-devel curl-devel GeoIP-devel doxygen zlib-devel nginx pcre-devel libxml2-devel openssl-devel -y
 
 # Get Nginx version and set configure options
 nginxVersion=`nginx -v 2>&1 | awk -F '/' '{print $2}'`
@@ -44,7 +44,7 @@ sudo /usr/bin/cp objs/ngx_http_modsecurity_module.so /etc/nginx/modules
 cd ~
 
 # Package files for distribution
-/usr/bin/tar -zcf libmodsecurity.tar.gz -C /usr/local modsecurity
+/usr/bin/tar -zcf libmodsecurity.tar.gz -C /usr/local/modsecurity
 /usr/bin/cp /etc/nginx/modules/ngx_http_modsecurity_module.so .
 
 # Cleanup source code

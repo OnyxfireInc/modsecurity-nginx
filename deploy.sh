@@ -1,7 +1,8 @@
 #!/bin/bash
 
 connectorVersion=1.0.0
-nginxVersion=1.13.8
+nginxVersion=1.13.9
+modsecVersion=3.0.0
 crsVersion=3.0.2
 
 # Install dependencies
@@ -23,31 +24,31 @@ if [ ! -d /etc/nginx/modsec ]; then
 fi
 
 # Install custom modsecurity config for nginx
-/usr/bin/wget -q -O /etc/nginx/modsec/main.conf.new https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/main.conf
 if [ ! -f /etc/nginx/modsec/main.conf ]; then
-	/usr/bin/mv /etc/nginx/modsec/main.conf.new /etc/nginx/modsec/main.conf
+	/usr/bin/wget -q -O /etc/nginx/modsec/main.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/main.conf
 fi
 
 # Install nginx base configuration
-/usr/bin/wget -q -O /etc/nginx/nginx.conf.new https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/nginx.conf
 if [ ! -f /etc/nginx/nginx.conf ]; then
-	/usr/bin/mv /etc/nginx/nginx.conf.new /etc/nginx/nginx.conf
+	/usr/bin/wget -q -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/nginx.conf
 fi
 
 # Install default server config
-/usr/bin/wget -q -O /etc/nginx/conf.d/default.conf.new https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/default.conf
 if [ ! -f /etc/nginx/conf.d/default.conf ]; then
-	/usr/bin/mv /etc/nginx/conf.d/default.conf.new /etc/nginx/conf.d/default.conf
+	/usr/bin/wget -q -O /etc/nginx/conf.d/default.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/default.conf
 fi
 
 # Install logrotate configuration
+if [ -f /etc/logrotate.d/nginx ]; then
+	/usr/bin/rm -f /etc/logrotate.d/nginx
+fi
 /usr/bin/wget -q -O /etc/logrotate.d/nginx https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/nginx
 
 # Install or update libmodsecurity
 if [ -d /usr/local/modsecurity/ ]; then
 	/usr/bin/rm -rf /usr/local/modsecurity/
 fi
-/usr/bin/wget -q -O - https://onyxfireinc.com/open-source/modsecurity/3.0.0/libmodsecurity.tar.gz | tar -zxm -C /usr/local
+/usr/bin/wget -q -O - https://onyxfireinc.com/open-source/modsecurity/${modsecVersion}/libmodsecurity.tar.gz | tar -zxm -C /usr/local
 
 # Remove existing OWASP CRS rules
 if [ -d /etc/nginx/modsec/crs ]; then
@@ -60,8 +61,7 @@ fi
 /usr/bin/cp /etc/nginx/modsec/crs/crs-setup.conf.example /etc/nginx/modsec/crs/crs-setup.conf
 
 # Install recommended modsecurity config
-/usr/bin/wget -q -O /etc/nginx/modsec/modsecurity.conf-recommended https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended
 if [ ! -f /etc/nginx/modsec/modsecurity.conf ]; then
-	/usr/bin/mv /etc/nginx/modsec/modsecurity.conf-recommended /etc/nginx/modsec/modsecurity.conf
+	/usr/bin/wget -q -O /etc/nginx/modsec/modsecurity.conf https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended
 	/usr/bin/sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/nginx/modsec/modsecurity.conf
 fi
