@@ -68,7 +68,7 @@ sudo /usr/bin/wget -q -O /etc/logrotate.d/nginx https://raw.githubusercontent.co
 if [ -d /usr/local/modsecurity/ ]; then
 	sudo /usr/bin/rm -rf /usr/local/modsecurity/
 fi
-/usr/bin/wget -q -O - https://github.com/OnyxFireInc/modsecurity-nginx/releases/download/${version}/libmodsecurity.tar.gz | sudo /usr/bin/tar -zxm -C /usr/local
+sudo /usr/bin/wget -q -O - https://github.com/OnyxFireInc/modsecurity-nginx/releases/download/${version}/libmodsecurity.tar.gz | sudo /usr/bin/tar -zxm -C /usr/local
 
 # Remove existing OWASP CRS rules
 if [ -d /etc/nginx/modsec/crs ]; then
@@ -76,7 +76,7 @@ if [ -d /etc/nginx/modsec/crs ]; then
 fi
 
 # Install OWASP CRS rules
-/usr/bin/wget -q -O - https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v${crsVersion}.tar.gz | sudo /usr/bin/tar zx -C /etc/nginx/modsec/
+sudo /usr/bin/wget -q -O - https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v${crsVersion}.tar.gz | sudo /usr/bin/tar zx -C /etc/nginx/modsec/
 sudo /usr/bin/mv /etc/nginx/modsec/owasp-modsecurity-crs-${crsVersion} /etc/nginx/modsec/crs
 sudo /usr/bin/cp /etc/nginx/modsec/crs/crs-setup.conf.example /etc/nginx/modsec/crs/crs-setup.conf
 
