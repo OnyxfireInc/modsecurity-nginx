@@ -17,7 +17,7 @@ EOF
 sudo /usr/bin/mv nginx.repo /etc/yum.repos.d/
 
 # Install dependencies
-sudo /usr/bin/yum install wget gcc-c++ flex bison yajl yajl-devel curl-devel GeoIP-devel doxygen zlib-devel nginx pcre-devel libxml2-devel openssl-devel -y
+sudo /usr/bin/yum -q install wget gcc-c++ flex bison yajl yajl-devel curl-devel GeoIP-devel doxygen zlib-devel nginx pcre-devel libxml2-devel openssl-devel -y
 
 # Get Nginx version and set configure options
 nginxVersion=`nginx -v 2>&1 | awk -F '/' '{print $2}'`
