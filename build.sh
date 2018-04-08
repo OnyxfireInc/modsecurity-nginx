@@ -2,7 +2,7 @@
 
 cd ~
 
-modsecurityVersion=3.0.0
+modsecurityVersion=3.0.2
 connectorVersion=1.0.0
 
 # Add mainline Nginx repo
