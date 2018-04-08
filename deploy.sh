@@ -89,6 +89,7 @@ fi
 
 # Configure SELinux
 sudo setsebool -P httpd_setrlimit 1
+sudo setsebool -P httpd_execmem 1
 sudo touch /.autorelabel
 
 # Exit message
