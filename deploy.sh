@@ -6,7 +6,7 @@ version=v1.13.11
 crsVersion=3.0.2
 
 # Install dependencies
-sudo yum install wget yajl -y
+sudo yum -q install wget yajl -y
 
 # Install nginx repo if not installed currently
 if [ ! -f /etc/yum.repos.d/nginx.repo ]; then
@@ -18,7 +18,7 @@ gpgcheck=0
 enabled=1
 EOF
 	sudo /usr/bin/mv nginx.repo /etc/yum.repos.d/
-	sudo yum install nginx
+	sudo yum -q install nginx
 fi
 
 # Create modules link if doesn't exist
