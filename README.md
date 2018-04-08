@@ -4,12 +4,12 @@ Configuration and scripts for deploying ModSecurity v3 with Nginx
 ## About
 These configurations and scripts are for our use and have not been tested for anything other than our intended purpose.
 
-### Building
+### Building new binaries
 ```
   wget -O - https://raw.githubusercontent.com/OnyxFireInc/modsecurity-nginx/master/build.sh | bash
 ```
 
-### Deploying
+### Deploying latest version
 ```
   wget -O - https://raw.githubusercontent.com/OnyxFireInc/modsecurity-nginx/master/deploy.sh | bash
 ```
