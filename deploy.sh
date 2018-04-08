@@ -1,12 +1,12 @@
 #!/bin/bash
 
-cd ~
+/usr/bin/cd ~
 
 version=v1.13.11
 crsVersion=3.0.2
 
 # Install dependencies
-sudo yum -q install wget yajl -y
+sudo /usr/bin/yum -q install wget yajl -y
 
 # Install nginx repo if not installed currently
 if [ ! -f /etc/yum.repos.d/nginx.repo ]; then
@@ -18,7 +18,7 @@ gpgcheck=0
 enabled=1
 EOF
 	sudo /usr/bin/mv nginx.repo /etc/yum.repos.d/
-	sudo yum -q install nginx
+	sudo /usr/bin/yum -q install nginx
 fi
 
 # Create modules link if doesn't exist
@@ -28,7 +28,7 @@ fi
 
 # Install or update modsecurity for nginx dynamic module
 sudo /usr/bin/wget -q -O /etc/nginx/modules/ngx_http_modsecurity_module.so https://github.com/OnyxFireInc/modsecurity-nginx/releases/download/${version}/ngx_http_modsecurity_module.so
-sudo chmod 0755 /etc/nginx/modules/ngx_http_modsecurity_module.so
+sudo /usr/bin/chmod 0755 /etc/nginx/modules/ngx_http_modsecurity_module.so
 
 # Create modsec directory if it doesn't exist
 if [ ! -d /etc/nginx/modsec ]; then
@@ -88,10 +88,10 @@ if [ ! -f /etc/nginx/modsec/modsecurity.conf ]; then
 fi
 
 # Configure SELinux
-sudo setsebool -P httpd_setrlimit 1
-sudo setsebool -P httpd_execmem 1
-sudo touch /.autorelabel
+sudo /usr/sbin/setsebool -P httpd_setrlimit 1
+sudo /usr/sbin/setsebool -P httpd_execmem 1
+sudo /usr/bin/touch /.autorelabel
 
 # Exit message
-echo
-echo Reboot server now to complete setup...
+/usr/bin/echo
+/usr/bin/echo Reboot server now to complete setup...
