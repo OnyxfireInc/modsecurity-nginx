@@ -44,7 +44,7 @@ sudo /usr/bin/cp objs/ngx_http_modsecurity_module.so /etc/nginx/modules
 cd ~
 
 # Package files for distribution
-/usr/bin/tar -zcf libmodsecurity.tar.gz -C /usr/local/modsecurity
+/usr/bin/tar -zcf libmodsecurity.tar.gz -C /usr/local modsecurity/
 /usr/bin/cp /etc/nginx/modules/ngx_http_modsecurity_module.so .
 
 # Cleanup source code
