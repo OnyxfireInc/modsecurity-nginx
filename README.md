@@ -1,4 +1,3 @@
-# modsecurity-nginx
 Configuration and scripts for deploying ModSecurity v3 with Nginx
 
 ## About
