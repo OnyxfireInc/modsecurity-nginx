@@ -84,7 +84,7 @@ sudo /usr/bin/cp /etc/nginx/modsec/crs/crs-setup.conf.example /etc/nginx/modsec/
 if [ ! -f /etc/nginx/modsec/modsecurity.conf ]; then
 	sudo /usr/bin/wget -q -O /etc/nginx/modsec/modsecurity.conf https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended
 	sudo /usr/bin/sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/nginx/modsec/modsecurity.conf
-	sudo /usr/bin/sed -i 's/SecAuditLog /var/log/modsec_audit.log/SecAuditLog /var/log/nginx/modsec_audit.log/' /etc/nginx/modsec/modsecurity.conf
+	sudo /usr/bin/sed -i 's/SecAuditLog \/var\/log\/modsec_audit.log/SecAuditLog \/var\/log\/nginx\/modsec_audit.log\/' /etc/nginx/modsec/modsecurity.conf
 fi
 
 # Configure SELinux
