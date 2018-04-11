@@ -2,7 +2,6 @@
 
 cd ~
 
-nginxVersion=v1.13.12
 crsVersion=3.0.2
 
 # Install dependencies
@@ -20,6 +19,9 @@ EOF
 	sudo /usr/bin/mv nginx.repo /etc/yum.repos.d/
 	sudo /usr/bin/yum -q install nginx
 fi
+
+# Get Nginx version
+nginxVersion=`nginx -v 2>&1 | awk -F '/' '{print $2}'`
 
 # Create modules link if doesn't exist
 if [ ! -d /etc/nginx/modules/ ]; then
