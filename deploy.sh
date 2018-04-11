@@ -17,7 +17,7 @@ gpgcheck=0
 enabled=1
 EOF
 	sudo /usr/bin/mv nginx.repo /etc/yum.repos.d/
-	sudo /usr/bin/yum -q install nginx
+	sudo /usr/bin/yum -qy install nginx
 fi
 
 # Get Nginx version
@@ -61,6 +61,8 @@ sudo /usr/bin/wget -q -O /etc/nginx/template.d/ssl.conf https://raw.githubuserco
 sudo /usr/bin/wget -q -O /etc/nginx/template.d/ssl-stapling.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/ssl-stapling.conf
 sudo /usr/bin/wget -q -O /etc/nginx/template.d/robots.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/robots.conf
 sudo /usr/bin/wget -q -O /etc/nginx/template.d/certbot.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/certbot.conf
+sudo /usr/bin/wget -q -O /etc/nginx/template.d/php.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/php.conf
+sudo /usr/bin/wget -q -O /etc/nginx/template.d/static-cache.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/static-cache.conf
 
 # Install or update modsecurity for nginx dynamic module
 sudo /usr/bin/wget -q -O /etc/nginx/modules/ngx_http_modsecurity_module.so https://github.com/OnyxFireInc/modsecurity-nginx/releases/download/${nginxVersion}/ngx_http_modsecurity_module.so
