@@ -5,19 +5,24 @@
 modsecurityVersion=3.0.2
 connectorVersion=1.0.0
 
-# Add mainline Nginx repo
-/usr/bin/cat <<EOF > nginx.repo
+# Install dependencies
+sudo /usr/bin/yum -q install wget gcc-c++ flex bison yajl yajl-devel curl-devel GeoIP-devel doxygen zlib-devel \
+    pcre-devel libxml2-devel openssl-devel -y
+
+# Install mainline nginx repo if not installed currently
+if [ ! -f /etc/yum.repos.d/nginx.repo ]; then
+    /usr/bin/cat <<EOF > nginx.repo
 [nginx]
 name=nginx repo
 baseurl=http://nginx.org/packages/mainline/centos/7/\$basearch/
 gpgcheck=0
 enabled=1
 EOF
+    sudo /usr/bin/mv nginx.repo /etc/yum.repos.d/
+fi
 
-sudo /usr/bin/mv nginx.repo /etc/yum.repos.d/
-
-# Install dependencies
-sudo /usr/bin/yum -q install wget gcc-c++ flex bison yajl yajl-devel curl-devel GeoIP-devel doxygen zlib-devel nginx pcre-devel libxml2-devel openssl-devel -y
+# Install Nginx
+sudo /usr/bin/yum -q install nginx
 
 # Get Nginx version and set configure options
 nginxVersion=`nginx -v 2>&1 | awk -F '/' '{print $2}'`
