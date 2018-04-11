@@ -21,7 +21,7 @@ EOF
 fi
 
 # Get Nginx version
-nginxVersion=`nginx -v 2>&1 | awk -F '/' '{print $2}'`
+nginxVersion=v`nginx -v 2>&1 | awk -F '/' '{print $2}'`
 
 # Create modules link if doesn't exist
 if [ ! -d /etc/nginx/modules/ ]; then
