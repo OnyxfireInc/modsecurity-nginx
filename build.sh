@@ -1,6 +1,6 @@
 #!/bin/bash
 
-/usr/bin/cd ~
+cd ~
 
 modsecurityVersion=3.0.2
 connectorVersion=1.0.0
@@ -33,20 +33,20 @@ nginxVersion=`nginx -v 2>&1 | awk -F '/' '{print $2}'`
 /usr/bin/wget -q -O - http://nginx.org/download/nginx-${nginxVersion}.tar.gz | /usr/bin/tar -xz -C ~
 
 # Build and install libmodsecurity
-/usr/bin/cd modsecurity-v${modsecurityVersion}
+cd modsecurity-v${modsecurityVersion}
 ./configure
 /usr/bin/make
 sudo /usr/bin/make install
-/usr/bin/cd ~
+cd ~
 
 # Build and install nginx dynamic module
-/usr/bin/cd nginx-${nginxVersion}
+cd nginx-${nginxVersion}
 options=`2>&1 nginx -V | grep configure | cut -c 22-`
 options="$options --add-dynamic-module=../modsecurity-nginx-v${connectorVersion}"
 /usr/bin/echo $options | xargs ./configure
 /usr/bin/make modules
 sudo /usr/bin/cp objs/ngx_http_modsecurity_module.so /etc/nginx/modules
-/usr/bin/cd ~
+cd ~
 
 # Package files for distribution
 /usr/bin/tar -zcf libmodsecurity.tar.gz -C /usr/local modsecurity/
