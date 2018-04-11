@@ -2,7 +2,6 @@
 
 /usr/bin/cd ~
 
-version=v1.13.11
 crsVersion=3.0.2
 
 # Install dependencies
@@ -21,13 +20,16 @@ EOF
 	sudo /usr/bin/yum -q install nginx
 fi
 
+# Get Nginx version
+nginxVersion=`nginx -v 2>&1 | awk -F '/' '{print $2}'`
+
 # Create modules link if doesn't exist
 if [ ! -d /etc/nginx/modules/ ]; then
 	sudo /usr/bin/ln -sf /usr/lib64/nginx/modules /etc/nginx/modules
 fi
 
 # Install or update modsecurity for nginx dynamic module
-sudo /usr/bin/wget -q -O /etc/nginx/modules/ngx_http_modsecurity_module.so https://github.com/OnyxFireInc/modsecurity-nginx/releases/download/${version}/ngx_http_modsecurity_module.so
+sudo /usr/bin/wget -q -O /etc/nginx/modules/ngx_http_modsecurity_module.so https://github.com/OnyxFireInc/modsecurity-nginx/releases/download/${nginxVersion}/ngx_http_modsecurity_module.so
 sudo /usr/bin/chmod 0755 /etc/nginx/modules/ngx_http_modsecurity_module.so
 
 # Create modsec directory if it doesn't exist
@@ -68,7 +70,7 @@ sudo /usr/bin/wget -q -O /etc/logrotate.d/nginx https://raw.githubusercontent.co
 if [ -d /usr/local/modsecurity/ ]; then
 	sudo /usr/bin/rm -rf /usr/local/modsecurity/
 fi
-sudo /usr/bin/wget -q -O - https://github.com/OnyxFireInc/modsecurity-nginx/releases/download/${version}/libmodsecurity.tar.gz | sudo /usr/bin/tar -zxm -C /usr/local
+sudo /usr/bin/wget -q -O - https://github.com/OnyxFireInc/modsecurity-nginx/releases/download/${nginxVersion}/libmodsecurity.tar.gz | sudo /usr/bin/tar -zxm -C /usr/local
 
 # Remove existing OWASP CRS rules
 if [ -d /etc/nginx/modsec/crs ]; then
@@ -93,5 +95,4 @@ sudo /usr/sbin/setsebool -P httpd_execmem 1
 sudo /usr/bin/touch /.autorelabel
 
 # Exit message
-/usr/bin/echo
 /usr/bin/echo Reboot server now to complete setup...
