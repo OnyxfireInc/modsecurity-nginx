@@ -1,5 +1,4 @@
 #!/bin/bash
-SET -X
 
 /usr/bin/cd ~
 
