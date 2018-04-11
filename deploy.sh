@@ -1,6 +1,6 @@
 #!/bin/bash
 
-/usr/bin/cd ~
+cd ~
 
 crsVersion=3.0.2
 
