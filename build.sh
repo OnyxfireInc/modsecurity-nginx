@@ -56,3 +56,6 @@ cd ~
 /usr/bin/rm -rf modsecurity-v${modsecurityVersion}
 /usr/bin/rm -rf nginx-${nginxVersion}
 /usr/bin/rm -rf modsecurity-nginx-v${connectorVersion}
+
+# Exit message
+/usr/bin/echo "Build process complete"
