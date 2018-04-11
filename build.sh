@@ -24,7 +24,7 @@ fi
 # Install Nginx
 sudo /usr/bin/yum -q install nginx
 
-# Get Nginx version and set configure options
+# Get Nginx version
 nginxVersion=`nginx -v 2>&1 | awk -F '/' '{print $2}'`
 
 # Download source code
