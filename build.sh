@@ -22,7 +22,7 @@ EOF
 fi
 
 # Install Nginx
-sudo /usr/bin/yum -qy install nginx
+sudo /usr/bin/yum -q install nginx  -y
 
 # Get Nginx version
 nginxVersion=`nginx -v 2>&1 | awk -F '/' '{print $2}'`

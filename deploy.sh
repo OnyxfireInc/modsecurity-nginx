@@ -17,7 +17,7 @@ gpgcheck=0
 enabled=1
 EOF
 	sudo /usr/bin/mv nginx.repo /etc/yum.repos.d/
-	sudo /usr/bin/yum -qy install nginx
+	sudo /usr/bin/yum -q install nginx -y
 fi
 
 # Get Nginx version
