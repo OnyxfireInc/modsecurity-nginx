@@ -28,6 +28,40 @@ if [ ! -d /etc/nginx/modules/ ]; then
 	sudo /usr/bin/ln -sf /usr/lib64/nginx/modules /etc/nginx/modules
 fi
 
+# Create global configuration directory if it doesn't exist
+if [ ! -d /etc/nginx/global.d ]; then
+	sudo /usr/bin/mkdir /etc/nginx/global.d
+	sudo /usr/bin/chmod 0755 /etc/nginx/global.d
+fi
+
+# Create template configuration directory if it doesn't exist
+if [ ! -d /etc/nginx/template.d ]; then
+	sudo /usr/bin/mkdir /etc/nginx/template.d
+	sudo /usr/bin/chmod 0755 /etc/nginx/template.d
+fi
+
+# Install nginx base configuration
+sudo /usr/bin/wget -q -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/nginx.conf
+
+# Install default server config
+if [ ! -f /etc/nginx/conf.d/default.conf ]; then
+	sudo /usr/bin/wget -q -O /etc/nginx/conf.d/default.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/default.conf
+fi
+
+# Install global configuration
+sudo /usr/bin/wget -q -O /etc/nginx/global.d/timeouts.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/timeouts.conf
+sudo /usr/bin/wget -q -O /etc/nginx/global.d/cache-file-descriptors.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/cache-file-descriptors.conf
+sudo /usr/bin/wget -q -O /etc/nginx/global.d/extra-security.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/extra-security.conf
+sudo /usr/bin/wget -q -O /etc/nginx/global.d/gzip.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/gzip.conf
+sudo /usr/bin/wget -q -O /etc/nginx/global.d/security.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/security.conf
+sudo /usr/bin/wget -q -O /etc/nginx/global.d/proxy.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/proxy.conf
+
+# Install configuration templates
+sudo /usr/bin/wget -q -O /etc/nginx/template.d/ssl.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/ssl.conf
+sudo /usr/bin/wget -q -O /etc/nginx/template.d/ssl-stapling.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/ssl-stapling.conf
+sudo /usr/bin/wget -q -O /etc/nginx/template.d/robots.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/robots.conf
+sudo /usr/bin/wget -q -O /etc/nginx/template.d/certbot.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/certbot.conf
+
 # Install or update modsecurity for nginx dynamic module
 sudo /usr/bin/wget -q -O /etc/nginx/modules/ngx_http_modsecurity_module.so https://github.com/OnyxFireInc/modsecurity-nginx/releases/download/${nginxVersion}/ngx_http_modsecurity_module.so
 sudo /usr/bin/chmod 0755 /etc/nginx/modules/ngx_http_modsecurity_module.so
@@ -41,23 +75,6 @@ fi
 # Install custom modsecurity config for nginx
 if [ ! -f /etc/nginx/modsec/main.conf ]; then
 	sudo /usr/bin/wget -q -O /etc/nginx/modsec/main.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/main.conf
-fi
-
-# Install nginx base configuration
-if [ ! -f /etc/nginx/nginx.conf ]; then
-	sudo /usr/bin/wget -q -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/nginx.conf
-	sudo /usr/bin/wget -q -O /etc/nginx/ssl.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/ssl.conf
-	sudo /usr/bin/wget -q -O /etc/nginx/ssl-stapling.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/ssl-stapling.conf
-	sudo /usr/bin/wget -q -O /etc/nginx/cache-file-descriptors.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/cache-file-descriptors.conf
-	sudo /usr/bin/wget -q -O /etc/nginx/extra-security.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/extra-security.conf
-	sudo /usr/bin/wget -q -O /etc/nginx/gzip.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/gzip.conf
-	sudo /usr/bin/wget -q -O /etc/nginx/proxy.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/proxy.conf
-	sudo /usr/bin/wget -q -O /etc/nginx/security.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/security.conf
-fi
-
-# Install default server config
-if [ ! -f /etc/nginx/conf.d/default.conf ]; then
-	sudo /usr/bin/wget -q -O /etc/nginx/conf.d/default.conf https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/default.conf
 fi
 
 # Install logrotate configuration
@@ -83,11 +100,9 @@ sudo /usr/bin/mv /etc/nginx/modsec/owasp-modsecurity-crs-${crsVersion} /etc/ngin
 sudo /usr/bin/cp /etc/nginx/modsec/crs/crs-setup.conf.example /etc/nginx/modsec/crs/crs-setup.conf
 
 # Install modsecurity config
-if [ ! -f /etc/nginx/modsec/modsecurity.conf ]; then
-	sudo /usr/bin/wget -q -O /etc/nginx/modsec/modsecurity.conf https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended
-	sudo /usr/bin/sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/nginx/modsec/modsecurity.conf
-	sudo /usr/bin/sed -i 's/SecAuditLog \/var\/log\/modsec_audit\.log/SecAuditLog \/var\/log\/nginx\/modsec_audit\.log/' /etc/nginx/modsec/modsecurity.conf
-fi
+sudo /usr/bin/wget -q -O /etc/nginx/modsec/modsecurity.conf https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended
+sudo /usr/bin/sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/nginx/modsec/modsecurity.conf
+sudo /usr/bin/sed -i 's/SecAuditLog \/var\/log\/modsec_audit\.log/SecAuditLog \/var\/log\/nginx\/modsec_audit\.log/' /etc/nginx/modsec/modsecurity.conf
 
 # Configure SELinux
 sudo /usr/sbin/setsebool -P httpd_setrlimit 1
