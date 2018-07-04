@@ -21,7 +21,11 @@ EOF
 fi
 
 # Get Nginx version
-nginxVersion=v`nginx -v 2>&1 | awk -F '/' '{print $2}'`
+if [ ! -z $1 ]; then
+	nginxVersion=$1
+else
+	nginxVersion=v`nginx -v 2>&1 | awk -F '/' '{print $2}'`
+fi
 
 # Create modules link if doesn't exist
 if [ ! -d /etc/nginx/modules/ ]; then
@@ -80,9 +84,6 @@ if [ ! -f /etc/nginx/modsec/main.conf ]; then
 fi
 
 # Install logrotate configuration
-if [ -f /etc/logrotate.d/nginx ]; then
-	sudo /usr/bin/rm -f /etc/logrotate.d/nginx
-fi
 sudo /usr/bin/wget -q -O /etc/logrotate.d/nginx https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/nginx
 
 # Install or update libmodsecurity
