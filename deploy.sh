@@ -45,31 +45,31 @@ if [ ! -d /etc/nginx/template.d ]; then
 fi
 
 # Install nginx base configuration
-sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/nginx.conf >/etc/nginx/nginx.conf
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/nginx.conf >/etc/nginx/nginx.conf"
 
 # Install default server config
 if [ ! -f /etc/nginx/conf.d/default.conf ]; then
-	sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/default.conf >/etc/nginx/conf.d/default.conf
+	sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/default.conf >/etc/nginx/conf.d/default.conf"
 fi
 
 # Install global configuration
-sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/timeouts.conf >/etc/nginx/global.d/timeouts.conf
-sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/cache-file-descriptors.conf >/etc/nginx/global.d/cache-file-descriptors.conf
-sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/extra-security.conf >/etc/nginx/global.d/extra-security.conf
-sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/gzip.conf >/etc/nginx/global.d/gzip.conf
-sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/security.conf >/etc/nginx/global.d/security.conf
-sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/proxy.conf >/etc/nginx/global.d/proxy.conf
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/timeouts.conf >/etc/nginx/global.d/timeouts.conf"
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/cache-file-descriptors.conf >/etc/nginx/global.d/cache-file-descriptors.conf"
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/extra-security.conf >/etc/nginx/global.d/extra-security.conf"
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/gzip.conf >/etc/nginx/global.d/gzip.conf"
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/security.conf >/etc/nginx/global.d/security.conf"
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/proxy.conf >/etc/nginx/global.d/proxy.conf"
 
 # Install configuration templates
-sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/ssl.conf >/etc/nginx/template.d/ssl.conf
-sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/ssl-stapling.conf >/etc/nginx/template.d/ssl-stapling.conf
-sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/robots.conf >/etc/nginx/template.d/robots.conf
-sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/certbot.conf >/etc/nginx/template.d/certbot.conf
-sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/php.conf >/etc/nginx/template.d/php.conf
-sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/static-cache.conf >/etc/nginx/template.d/static-cache.conf
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/ssl.conf >/etc/nginx/template.d/ssl.conf"
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/ssl-stapling.conf >/etc/nginx/template.d/ssl-stapling.conf"
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/robots.conf >/etc/nginx/template.d/robots.conf"
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/certbot.conf >/etc/nginx/template.d/certbot.conf"
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/php.conf >/etc/nginx/template.d/php.conf"
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/static-cache.conf >/etc/nginx/template.d/static-cache.conf"
 
 # Install or update modsecurity for nginx dynamic module
-sudo /usr/bin/curl -s https://github.com/OnyxFireInc/modsecurity-nginx/releases/download/${nginxVersion}/ngx_http_modsecurity_module.so >/etc/nginx/modules/ngx_http_modsecurity_module.so
+sudo -E sh -c "/usr/bin/curl -s https://github.com/OnyxFireInc/modsecurity-nginx/releases/download/${nginxVersion}/ngx_http_modsecurity_module.so >/etc/nginx/modules/ngx_http_modsecurity_module.so"
 sudo /usr/bin/chmod 0755 /etc/nginx/modules/ngx_http_modsecurity_module.so
 
 # Create modsec directory if it doesn't exist
@@ -80,17 +80,17 @@ fi
 
 # Install custom modsecurity config for nginx
 if [ ! -f /etc/nginx/modsec/main.conf ]; then
-	sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/main.conf >/etc/nginx/modsec/main.conf
+	sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/main.conf >/etc/nginx/modsec/main.conf"
 fi
 
 # Install logrotate configuration
-sudo /usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/nginx >/etc/logrotate.d/nginx
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/nginx >/etc/logrotate.d/nginx"
 
 # Install or update libmodsecurity
 if [ -d /usr/local/modsecurity/ ]; then
 	sudo /usr/bin/rm -rf /usr/local/modsecurity/
 fi
-sudo /usr/bin/curl -Ls https://github.com/OnyxFireInc/modsecurity-nginx/releases/download/${nginxVersion}/libmodsecurity.tar.gz | sudo /usr/bin/tar -zxm -C /usr/local
+/usr/bin/curl -Ls https://github.com/OnyxFireInc/modsecurity-nginx/releases/download/${nginxVersion}/libmodsecurity.tar.gz | sudo /usr/bin/tar -zxm -C /usr/local
 
 # Remove existing OWASP CRS rules
 if [ -d /etc/nginx/modsec/crs ]; then
@@ -98,12 +98,12 @@ if [ -d /etc/nginx/modsec/crs ]; then
 fi
 
 # Install OWASP CRS rules
-sudo /usr/bin/curl -Ls https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v${crsVersion}.tar.gz | sudo /usr/bin/tar zx -C /etc/nginx/modsec/
+/usr/bin/curl -Ls https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v${crsVersion}.tar.gz | sudo /usr/bin/tar zx -C /etc/nginx/modsec/
 sudo /usr/bin/mv /etc/nginx/modsec/owasp-modsecurity-crs-${crsVersion} /etc/nginx/modsec/crs
 sudo /usr/bin/cp /etc/nginx/modsec/crs/crs-setup.conf.example /etc/nginx/modsec/crs/crs-setup.conf
 
 # Install modsecurity config
-sudo /usr/bin/curl -s https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended >/etc/nginx/modsec/modsecurity.conf
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended >/etc/nginx/modsec/modsecurity.conf"
 sudo /usr/bin/sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/nginx/modsec/modsecurity.conf
 sudo /usr/bin/sed -i 's/SecAuditLog \/var\/log\/modsec_audit\.log/SecAuditLog \/var\/log\/nginx\/modsec_audit\.log/' /etc/nginx/modsec/modsecurity.conf
 
