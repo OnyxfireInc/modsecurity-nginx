@@ -108,8 +108,11 @@ sudo /usr/bin/sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/ngin
 sudo /usr/bin/sed -i 's/SecAuditLog \/var\/log\/modsec_audit\.log/SecAuditLog \/var\/log\/nginx\/modsec_audit\.log/' /etc/nginx/modsec/modsecurity.conf
 
 # Configure SELinux
+sudo /usr/sbin/setsebool httpd_setrlimit 1
+sudo /usr/sbin/setsebool httpd_execmem 1
 sudo /usr/sbin/setsebool -P httpd_setrlimit 1
 sudo /usr/sbin/setsebool -P httpd_execmem 1
+sudo /usr/sbin/restorecon -R /usr/local/modsecurity/
 
 # Exit message
 /usr/bin/echo Reboot server now to complete setup...
