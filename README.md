@@ -5,12 +5,12 @@ These configurations and scripts are for our use and have not been tested for an
 
 ### Building new binaries
 ```
-  wget -qO - https://raw.githubusercontent.com/OnyxFireInc/modsecurity-nginx/master/build.sh | bash
+  curl -s https://raw.githubusercontent.com/OnyxFireInc/modsecurity-nginx/master/build.sh | bash
 ```
 
 ### Deploying latest version
 ```
-  wget -qO - https://raw.githubusercontent.com/OnyxFireInc/modsecurity-nginx/master/deploy.sh | bash
+  curl -s https://raw.githubusercontent.com/OnyxFireInc/modsecurity-nginx/master/deploy.sh | bash [-s nginx-version]
 ```
 
 ## License
