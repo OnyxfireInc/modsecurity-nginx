@@ -69,7 +69,7 @@ sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/mo
 sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/OnyxfireInc/modsecurity-nginx/master/static-cache.conf >/etc/nginx/template.d/static-cache.conf"
 
 # Install or update modsecurity for nginx dynamic module
-sudo -E sh -c "/usr/bin/curl -s https://github.com/OnyxFireInc/modsecurity-nginx/releases/download/${nginxVersion}/ngx_http_modsecurity_module.so >/etc/nginx/modules/ngx_http_modsecurity_module.so"
+sudo -E sh -c "/usr/bin/curl -Ls https://github.com/OnyxFireInc/modsecurity-nginx/releases/download/${nginxVersion}/ngx_http_modsecurity_module.so >/etc/nginx/modules/ngx_http_modsecurity_module.so"
 sudo /usr/bin/chmod 0755 /etc/nginx/modules/ngx_http_modsecurity_module.so
 
 # Create modsec directory if it doesn't exist
