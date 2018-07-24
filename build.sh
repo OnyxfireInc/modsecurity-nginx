@@ -6,7 +6,7 @@ modsecurityVersion=3.0.2
 connectorVersion=1.0.0
 
 # Install dependencies
-sudo /usr/bin/yum -q install wget gcc-c++ flex bison yajl yajl-devel curl-devel GeoIP-devel doxygen zlib-devel \
+sudo /usr/bin/yum -q install gcc-c++ flex bison yajl yajl-devel curl-devel GeoIP-devel doxygen zlib-devel \
     pcre-devel libxml2-devel openssl-devel -y
 
 # Install nginx repo if not installed currently
@@ -28,9 +28,9 @@ sudo /usr/bin/yum -q install nginx  -y
 nginxVersion=`nginx -v 2>&1 | awk -F '/' '{print $2}'`
 
 # Download source code
-/usr/bin/wget -q -O - https://github.com/SpiderLabs/ModSecurity/releases/download/v${modsecurityVersion}/modsecurity-v${modsecurityVersion}.tar.gz | /usr/bin/tar -xz -C ~
-/usr/bin/wget -q -O - https://github.com/SpiderLabs/ModSecurity-nginx/releases/download/v${connectorVersion}/modsecurity-nginx-v${connectorVersion}.tar.gz | /usr/bin/tar -xz -C ~
-/usr/bin/wget -q -O - http://nginx.org/download/nginx-${nginxVersion}.tar.gz | /usr/bin/tar -xz -C ~
+/usr/bin/curl -s https://github.com/SpiderLabs/ModSecurity/releases/download/v${modsecurityVersion}/modsecurity-v${modsecurityVersion}.tar.gz | /usr/bin/tar -xz -C ~
+/usr/bin/curl -s https://github.com/SpiderLabs/ModSecurity-nginx/releases/download/v${connectorVersion}/modsecurity-nginx-v${connectorVersion}.tar.gz | /usr/bin/tar -xz -C ~
+/usr/bin/curl -s http://nginx.org/download/nginx-${nginxVersion}.tar.gz | /usr/bin/tar -xz -C ~
 
 # Build and install libmodsecurity
 cd modsecurity-v${modsecurityVersion}
