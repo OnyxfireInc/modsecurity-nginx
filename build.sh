@@ -28,9 +28,9 @@ sudo /usr/bin/yum -q install nginx  -y
 nginxVersion=`nginx -v 2>&1 | awk -F '/' '{print $2}'`
 
 # Download source code
-/usr/bin/curl -s https://github.com/SpiderLabs/ModSecurity/releases/download/v${modsecurityVersion}/modsecurity-v${modsecurityVersion}.tar.gz | /usr/bin/tar -xz -C ~
-/usr/bin/curl -s https://github.com/SpiderLabs/ModSecurity-nginx/releases/download/v${connectorVersion}/modsecurity-nginx-v${connectorVersion}.tar.gz | /usr/bin/tar -xz -C ~
-/usr/bin/curl -s http://nginx.org/download/nginx-${nginxVersion}.tar.gz | /usr/bin/tar -xz -C ~
+/usr/bin/curl -Ls https://github.com/SpiderLabs/ModSecurity/releases/download/v${modsecurityVersion}/modsecurity-v${modsecurityVersion}.tar.gz | /usr/bin/tar -xz -C ~
+/usr/bin/curl -Ls https://github.com/SpiderLabs/ModSecurity-nginx/releases/download/v${connectorVersion}/modsecurity-nginx-v${connectorVersion}.tar.gz | /usr/bin/tar -xz -C ~
+/usr/bin/curl -Ls http://nginx.org/download/nginx-${nginxVersion}.tar.gz | /usr/bin/tar -xz -C ~
 
 # Build and install libmodsecurity
 cd modsecurity-v${modsecurityVersion}
