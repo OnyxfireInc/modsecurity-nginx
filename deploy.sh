@@ -104,6 +104,7 @@ sudo /usr/bin/cp /etc/nginx/modsec/crs/crs-setup.conf.example /etc/nginx/modsec/
 
 # Install modsecurity config
 sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended >/etc/nginx/modsec/modsecurity.conf"
+sudo -E sh -c "/usr/bin/curl -s https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/unicode.mapping >/etc/nginx/modsec/unicode.mapping"
 sudo /usr/bin/sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/nginx/modsec/modsecurity.conf
 sudo /usr/bin/sed -i 's/SecAuditLog \/var\/log\/modsec_audit\.log/SecAuditLog \/var\/log\/nginx\/modsec_audit\.log/' /etc/nginx/modsec/modsecurity.conf
 
