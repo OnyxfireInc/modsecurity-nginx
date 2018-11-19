@@ -2,7 +2,7 @@
 
 cd ~
 
-modsecurityVersion=3.0.2
+modsecurityVersion=3.0.3
 connectorVersion=1.0.0
 
 # Install dependencies
