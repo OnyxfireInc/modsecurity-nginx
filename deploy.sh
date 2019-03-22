@@ -2,7 +2,7 @@
 
 cd ~
 
-crsVersion=3.0.2
+crsVersion=3.1.0
 
 # Install dependencies
 sudo /usr/bin/yum -q install yajl -y
