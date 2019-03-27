@@ -15,7 +15,7 @@ These configurations and scripts are for our use and have not been tested for an
 
 ### Deploying for specific version
 ```
-  curl -s https://raw.githubusercontent.com/OnyxFireInc/modsecurity-nginx/master/deploy.sh | bash -s v1.15.9
+  curl -s https://raw.githubusercontent.com/OnyxFireInc/modsecurity-nginx/master/deploy.sh | bash -s v1.15.10
 ```
 
 ## License
