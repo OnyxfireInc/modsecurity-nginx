@@ -26,6 +26,7 @@ if [ ! -z $1 ]; then
 	sudo /usr/bin/sed -i 's/load_module modules\/ngx_http_modsecurity_module.so/#load_module modules\/ngx_http_modsecurity_module.so/' /etc/nginx/nginx.conf >/dev/null 2>&1
 	sudo /usr/bin/sed -i 's/modsecurity on/modsecurity off/' /etc/nginx/global.d/security.conf >/dev/null 2>&1
 	sudo /usr/bin/sed -i 's/modsecurity_rules_file/#modsecurity_rules_file/' /etc/nginx/global.d/security.conf >/dev/null 2>&1
+	sudo yum upgrade nginx --enablerepo=nginx
 	sudo systemctl restart nginx >/dev/null 2>&1
 else
 	nginxVersion=v`nginx -v 2>&1 | awk -F '/' '{print $2}'`
