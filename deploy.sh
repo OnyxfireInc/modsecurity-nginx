@@ -14,7 +14,7 @@ if [ ! -f /etc/yum.repos.d/nginx.repo ]; then
 name=nginx repo
 baseurl=http://nginx.org/packages/mainline/centos/7/\$basearch/
 gpgcheck=0
-enabled=1
+enabled=0
 EOF
 	sudo /usr/bin/mv nginx.repo /etc/yum.repos.d/
 	sudo /usr/bin/yum -q install nginx -y
