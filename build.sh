@@ -3,7 +3,7 @@
 cd ~
 
 modsecurityVersion=3.0.3
-connectorVersion=1.0.0
+connectorVersion=1.0.1
 
 # Install dependencies
 sudo /usr/bin/yum -q install gcc-c++ flex bison yajl yajl-devel curl-devel GeoIP-devel doxygen zlib-devel \
